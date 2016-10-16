@@ -1,0 +1,22 @@
+{
+  "name": "jsonlz4-decompress",
+  "version": "0.0.1",
+  "description": "Decompress FireFox jsonlz4 bookmark backup files",
+  "author": "Tom Hiller <thrilleratplay@gmail.com> (https://github.com/Thrilleratplay)",
+  "main": "index.js",
+  "keywords": [
+    "jsonlz4",
+    "json",
+    "bookmarks",
+    "firefox"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "commander": "^2.9.0",
+    "lz4": "^0.5.3"
+  },
+  "repository": "thrilleratplay/node-jsonlz4-decompress"
+}
