@@ -9,6 +9,8 @@
   var fs = require('fs');
   var path = require('path');
 
+  var packageJson = require('./package.json');
+
   /**
    * Decompress jsonlz4 file buffer
    *
@@ -41,22 +43,26 @@
   // Export node module
   module.exports = decompress;
 
-  // Set up commandline parameter
-  program.usage('[options] <file>')
-         .arguments('<file>')
-         .description('Decompress a Firefox bookmark backup jsonlz4 file format into JSON')
-         .option('-p, --pretty', 'Pretty print JSON')
-         .action(function(file) {
-           if (program.pretty) {
-             console.log(JSON.stringify(decompress(fs.readFileSync(file)), null, 2));
-           } else {
-             console.log(JSON.stringify(decompress(fs.readFileSync(file))));
-           }
-         })
-         .parse(process.argv);
+  // http://stackoverflow.com/questions/6398196/node-js-detect-if-called-through-require-or-directly-by-command-line/6398335#6398335
+  if (require.main === module) {
+    // Set up commandline parameter
+    program.usage('[options] <file>')
+           .version(packageJson.version)
+           .arguments('<file>')
+           .description('Decompress a Firefox bookmark backup jsonlz4 file format into JSON')
+           .option('-p, --pretty', 'Pretty print JSON')
+           .action(function(file) {
+             if (program.pretty) {
+               console.log(JSON.stringify(decompress(fs.readFileSync(file)), null, 2));
+             } else {
+               console.log(JSON.stringify(decompress(fs.readFileSync(file))));
+             }
+           })
+           .parse(process.argv);
 
-  // If file argument is missing, print help menu
-  if (!program.args.length) {
-    program.outputHelp();
+    // If file argument is missing, print help menu
+    if (!program.args.length) {
+      program.outputHelp();
+    }
   }
 })();
