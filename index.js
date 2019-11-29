@@ -33,7 +33,7 @@
       return false;
     }
 
-    outputBuffer = new Buffer(inputBuffer.readUInt32LE(8));
+    outputBuffer = Buffer.alloc(inputBuffer.readUInt32LE(8));
 
     lz4.decodeBlock(inputBuffer, outputBuffer, 12);
 
